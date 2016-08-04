@@ -1,0 +1,19 @@
+{
+  "name": "curso.mongodbavanzado.eduit",
+  "version": "1.0.0",
+  "description": "Curso de MongoDB",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lortmorris/curso.mongodbavanzado.eduit.git"
+  },
+  "author": "Cesar Casas <cesarcasas@bsdsolutions.com.ar> (https://ar.linkedin.com/in/cesarcasas)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lortmorris/curso.mongodbavanzado.eduit/issues"
+  },
+  "homepage": "https://github.com/lortmorris/curso.mongodbavanzado.eduit#readme"
+}
