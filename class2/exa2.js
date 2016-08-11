@@ -1,4 +1,3 @@
-use cursedb;
 db.alumnos.drop();
 var t = db.alumnos;
 t.insert({added: new Date(), name: 'Alejandro', age:23});

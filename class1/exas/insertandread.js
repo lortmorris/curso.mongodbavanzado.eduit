@@ -1,4 +1,3 @@
-use cursodb;
 db.alumnos.insert({added: new Date(), name: 'Alejandro', age:23});
 db.alumnos.insert({added: new Date(), name: 'Martin', age:22});
 db.alumnos.insert({added: new Date(), name: 'Carlos', age:18});
