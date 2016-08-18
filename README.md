@@ -1,5 +1,9 @@
 # Curso de MongoDB avanzado (para estudiantes y desarrolladores).
 
+ 
+![alt text](https://webassets.mongodb.com/_com_assets/cms/mongodb-for-giant-ideas-bbab5c3cf8.png "MongoDB for giant ideas")
+
+
 Powered by [César Casas](https://ar.linkedin.com/in/cesarcasas)
  
 ## Introducción
@@ -22,3 +26,17 @@ Para poder desarrollar el curso con mayor facilidad usaremos como herramienta el
 * Cliente.
 * CRUD.
 * Operadores.
+
+## Class 2.
+* Índices (combinados, sort, multikey)
+* Operadores ($exists, $type)
+* Operadores de evaluación ($mod, $regex:$options, $text, $where)
+* Métodos de collections
+
+## Class 3.
+* db.createCollection
+* Document Validator
+* Capped collections
+* Tailable
+
+ 
