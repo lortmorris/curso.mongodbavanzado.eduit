@@ -10,9 +10,26 @@ function initMap() {
         zoom: 15
     });
 
-
 }
 
+function getPokemons(long, lat, distance){
+
+    $.ajax({
+        type: "POST",
+        url: "/getpokemons",
+        data: {query:{long: long, lat: lat, distance: distance}},
+        success: function ( data) {
+            console.log("pokemons:",  data);
+            data.forEach(p =>{
+                p.location.lng = p.location.coordinates[0];
+                p.location.lat = p.location.coordinates[1];
+                p.photos[0] = "/images/pokemons/"+p.photos[0];
+                createMarker(p);
+            });
+        },
+        dataType: "json"
+    });
+}
 
 function createMarker(item) {
     var marker = new google.maps.Marker({

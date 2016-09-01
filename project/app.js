@@ -18,6 +18,23 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 
+app.post("/getpokemons", (req, res)=>{
+    db.markers.find(
+    {
+        location: {
+            $near: {
+                $geometry: {
+                    type: "Point" ,
+                    coordinates: [ parseFloat(req.body.query.long), parseFloat(req.body.query.lat)]
+                },
+                $maxDistance: parseInt(req.body.query.distance)
+            }
+        },
+        type: "pokemon"
+    }, {}, (err, docs)=> res.json(docs));
+
+});
+
 app.post("/savemarkers", (req, res)=> {
     let response = {error: false, msg: "", result: null};
 

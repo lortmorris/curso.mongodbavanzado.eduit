@@ -1,6 +1,6 @@
 function getMarkerRandom(){
-	var lat = parseFloat("-34."+(619708 + Math.floor(Math.random()*51615) ) );
-	var long = parseFloat("-58."+(503089 + Math.floor(Math.random()*132829) ) );
+	var lat = parseFloat("-34."+(554981 + Math.floor(Math.random()*51615) ) );
+	var long = parseFloat("-58."+(486000 + Math.floor(Math.random()*132829) ) );
 
 	var pokemones = [
 	{name:"Bulbasaur", img:"001.png"},
@@ -25,6 +25,6 @@ function getMarkerRandom(){
 	}
 }
 
-for(var i=0; i<10000; i++){	
+for(var i=0; i<100000; i++){	
 	db.markers.insert(getMarkerRandom());
 }
