@@ -18,4 +18,15 @@
 - 10.000 sales
 
 ### Stats:
-- 
+- total operations: cc
+- total operations: cash
+- amount: cc
+- amount: cash
+
+
+```js
+var cursor = db.microsales.find();
+while(cursor.hasNext()) {
+  const item = cursor.next();
+}
+```
