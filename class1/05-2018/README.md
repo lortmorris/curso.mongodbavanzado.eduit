@@ -42,3 +42,25 @@ db.alumnos.find({
   ]
 })
 ```
+
+## $nin
+```javascript
+> db.alumnos.find({ x: { $nin: [2, 1000, 5000] } }).count();
+> db.alumnos.find({
+  $or: [
+    { $and: [{ x: { $lt: 1000 } }, { z: {$nin: [200, 500, 800] } } ] },
+    { $and: [{ y: { $lt: 5000 } }, { x: {$nin: [1000, 2000, 3000] } } ] }
+  ]
+}).count();
+```
+
+
+# removing data
+
+## db.collection.remove
+```javascript
+> db.alumnos.remove({ x: 4500 });
+> db.alumnos.remove({ z: { $gt: 25000 } });
+> db.alumnos.remove({ y: { $in: [1000, 1500, 2000] } });
+> db.alumnos.remove({ _id: ObjectId("5af0d5739d9039555a0844a3") });
+```
