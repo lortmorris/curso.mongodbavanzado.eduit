@@ -15,3 +15,19 @@ db.alumnos.find({ z : { $lt: 5000 }, y: { $lt: 2000 } }).count();
 // y < 2000, x > 1000, z = 3000
 db.alumnos.find({ y : { $lt: 2000 }, x: { $gt: 1000 }, z: 3000 }).count();
 ```
+
+## $and $or
+```javascript
+> db.alumnos.find({ $and: [{ x: { $gt: 1000} }, { z: {$lt: 5000} }, { y: {$ne: 2010} }] }).count()
+
+>  db.alumnos.find({ $or: [{ x: {$gt: 1000 }}, { z: { $lt: 10 } } ] }).count()
+```
+
+```javascript
+db.alumnos.find({
+  $or: [
+    { $and: [{ x: { $gt: 5000 } }, { z: { $lt: 8000 } }] },
+    { $and: [{ y: { $gt: 5000 } }, { z: { $lt: 18000 } }] },
+  ]
+}).count();
+```
