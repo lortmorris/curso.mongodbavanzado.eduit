@@ -19,4 +19,4 @@ getMicroSaleRandom = () => ({
   paymentMethod: getRandomData(paymenMethods),
 });
 
-for(let x=0;x<10000; x =+ 1) db.microsales.insert(getMicroSaleRandom());
+for(let x=0;x<10000; x += 1) db.microsales.insert(getMicroSaleRandom());

@@ -7,10 +7,11 @@
 ```js
 {
   added: (datetime),
-  product: {
+  products: [{ // one or more
     name: String,
-    price: float
-  },
+    price: float,
+    cant: Integer
+  }],
   paymentMethod: ['cc', 'cash']
 }
 ```
