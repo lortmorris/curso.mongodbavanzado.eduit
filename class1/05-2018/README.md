@@ -7,8 +7,11 @@ db.alumnos.find({ x: { $gte: 100 }, z: {$lte: 10000 } }).count()
 ```
 ## Get results
 
-```bash
-x < 2000, z > = 100
-z < 5000, y < 2000
-y < 2000, x > 1000, z = 3000
+```javascript
+// x < 2000, z > = 100
+db.alumnos.find({ x : { $lt: 2000 }, z: { $gte: 100 } }).count();
+// z < 5000, y < 2000
+db.alumnos.find({ z : { $lt: 5000 }, y: { $lt: 2000 } }).count();
+// y < 2000, x > 1000, z = 3000
+db.alumnos.find({ y : { $lt: 2000 }, x: { $gt: 1000 }, z: 3000 }).count();
 ```
