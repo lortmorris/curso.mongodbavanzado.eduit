@@ -20,7 +20,7 @@ db.alumnos.find({ y : { $lt: 2000 }, x: { $gt: 1000 }, z: 3000 }).count();
 ```javascript
 > db.alumnos.find({ $and: [{ x: { $gt: 1000} }, { z: {$lt: 5000} }, { y: {$ne: 2010} }] }).count()
 
->  db.alumnos.find({ $or: [{ x: {$gt: 1000 }}, { z: { $lt: 10 } } ] }).count()
+> db.alumnos.find({ $or: [{ x: {$gt: 1000 }}, { z: { $lt: 10 } } ] }).count()
 ```
 
 ```javascript
@@ -30,4 +30,15 @@ db.alumnos.find({
     { $and: [{ y: { $gt: 5000 } }, { z: { $lt: 18000 } }] },
   ]
 }).count();
+```
+
+## $in
+```javascript
+> db.alumnos.find({ x: { $in: [2, 1000, 5000] } });
+> db.alumnos.find({
+  $or: [
+    { $and: [{ x: { $lt: 1000 } }, { z: {$in: [200, 500, 800] } } ] },
+    { $and: [{ y: { $lt: 5000 } }, { x: {$in: [1000, 2000, 3000] } } ] }
+  ]
+})
 ```
