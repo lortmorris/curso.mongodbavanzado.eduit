@@ -64,3 +64,68 @@ db.alumnos.find({
 > db.alumnos.remove({ y: { $in: [1000, 1500, 2000] } });
 > db.alumnos.remove({ _id: ObjectId("5af0d5739d9039555a0844a3") });
 ```
+
+
+# work with Schemas
+
+```javascript
+// 10.000 sales
+const getRandomData = (data) => data[Math.round(Math.random() * data.length)]
+const getRandomFee = (limit) => Math.random() * limit;
+const names = ["Jose", "Juan", "Pedro", "Luis", "Carlos"];
+const lastnames = ["Sanchez", "Perez", "Casas", "Segura"];
+const paymentMethods = ["cc", "check", "cash"];
+const products = ["Iphone 8", "Ipad 2", "TV LG 50", "Acer Aspire 1221"];
+
+for (let x=0; x<10000; x++) {
+  const cant = Math.round(Math.random() * 10);
+  const fee = getRandomFee(1000);
+  const prods = [];
+  for (let p =0; p < (Math.round(Math.random() * 10) + 1); p++ ) {
+    prods.push({
+      name: getRandomData(products),
+      priceUSD: fee,
+      cant,
+      finalPrice: cant * fee,
+    });
+  }
+  db.sales.insert({
+    vendor: {
+      fname: getRandomData(names),
+      lname: getRandomData(lastnames),
+    },
+    products: prods,
+    datetime: new Date(),
+    paymentMethod: getRandomData(paymentMethods),
+  });
+}
+
+```
+
+
+```javascript
+> db.sales.find().pretty()
+```
+
+```javascript
+> db.sales.find({ 'vendor.fname': 'Carlos', 'vendor.lname': 'Perez', 'products.name': 'Iphone 8'  }).pretty()
+> var result = db.sales.find({ 'vendor.fname': 'Carlos', 'vendor.lname': 'Perez'  });
+> result.hasNext()
+
+var total = 0;
+while(result.hasNext()) {
+  const item = result.next();
+  item.products.forEach(p => {
+    total = total + p.finalPrice;
+  });
+}
+print(total);
+```
+
+
+## Exa
+
+- Total de ventas del vendedor: "Jose Perez"
+- Total de ventas del vendedor: "Pedro Casas"
+- Total de iphones vendidos
+- Total de dinero vendido en material de Acer
