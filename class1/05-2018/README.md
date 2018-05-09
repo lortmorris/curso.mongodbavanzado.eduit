@@ -66,6 +66,7 @@ db.alumnos.find({
 ```
 
 
+
 # work with Schemas
 
 ```javascript
@@ -77,7 +78,7 @@ const lastnames = ["Sanchez", "Perez", "Casas", "Segura"];
 const paymentMethods = ["cc", "check", "cash"];
 const products = ["Iphone 8", "Ipad 2", "TV LG 50", "Acer Aspire 1221"];
 
-for (let x=0; x<10000; x++) {
+for (let x=0; x<1000000; x++) {
   const cant = Math.round(Math.random() * 10);
   const fee = getRandomFee(1000);
   const prods = [];
@@ -129,3 +130,11 @@ print(total);
 - Total de ventas del vendedor: "Pedro Casas"
 - Total de iphones vendidos
 - Total de dinero vendido en material de Acer
+
+# Sorting
+is a method of find.
+```javascript
+> db.sales.find().sort({ _id: 1 }).pretty()
+> db.sales.find().sort({ _id: -1 }).pretty()
+```
+# Indexes
