@@ -54,6 +54,12 @@ db.alumnos.find({
 }).count();
 ```
 
+## $exists
+Check if prop exists or not.
+```javascript
+> db.sales.find({ products: { $exists: 0 }});
+> db.sales.find({ products: { $exists: 1 }});
+```
 
 # removing data
 
@@ -221,7 +227,7 @@ db.collection.createIndex({ field: -1 / 1, field2: -1 /1 });
  - While(hasNext)
  - Calculate the value the new property
  - db.collection.update ($set)
- 
+
 
  ```javascript
  // original
@@ -276,3 +282,15 @@ db.collection.createIndex({ field: -1 / 1, field2: -1 /1 });
  "totalAmount": 755,36
 }
  ```
+## Solution.
+```javascript
+  var result = db.sales.find();
+  while(result.hasNext()) {
+    const item = result.next();
+    let totalAmount = 0;
+    item.products.forEach(p => {
+      totalAmount = totalAmount + p.finalPrice;
+    });
+    db.sales.update({ _id: item._id }, { $set: { totalAmount }});
+  }
+```
