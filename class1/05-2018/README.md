@@ -66,6 +66,25 @@ db.alumnos.find({
 ```
 
 
+# updating data
+use update method of collection.
+update(criterial, updateObject, options);
+
+Mongodb will replace the currents document with the new document.
+
+If we want is add a new property, require use $set operator.
+
+```javascript
+$set: {
+  dni: 30756484
+}
+```
+
+Attention: if the prop already exists, the value will be replace.
+
+```javascript
+> db.sales.update({ 'vendor.fname': 'Jose', 'vendor.lname': 'Sanchez'}, { $set: { dni: 30756484 } });
+```
 
 # work with Schemas
 
@@ -131,10 +150,13 @@ print(total);
 - Total de iphones vendidos
 - Total de dinero vendido en material de Acer
 
-# Sorting
+# Sorting and limit
 is a method of find.
 ```javascript
-> db.sales.find().sort({ _id: 1 }).pretty()
-> db.sales.find().sort({ _id: -1 }).pretty()
+> db.sales.find().sort({ _id: 1 }).pretty();
+> db.sales.find().sort({ _id: -1 }).pretty();
+
+> db.sales.find({ 'vendor.fname': 'Jose', 'vendor.lname': 'Sanchez'}).limit(1);
+
 ```
 # Indexes
