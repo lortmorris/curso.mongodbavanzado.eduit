@@ -84,6 +84,9 @@ Attention: if the prop already exists, the value will be replace.
 
 ```javascript
 > db.sales.update({ 'vendor.fname': 'Jose', 'vendor.lname': 'Sanchez'}, { $set: { dni: 30756484 } });
+
+> db.sales.update({ 'vendor.fname': 'Jose', 'vendor.lname': 'Sanchez' }, { $set: { dni: 30756484 } }, { multi: true });
+WriteResult({ "nMatched" : 12927, "nUpserted" : 0, "nModified" : 12926 })
 ```
 
 # work with Schemas
@@ -130,7 +133,7 @@ for (let x=0; x<1000000; x++) {
 ```javascript
 > db.sales.find({ 'vendor.fname': 'Carlos', 'vendor.lname': 'Perez', 'products.name': 'Iphone 8'  }).pretty()
 > var result = db.sales.find({ 'vendor.fname': 'Carlos', 'vendor.lname': 'Perez'  });
-> result.hasNext()
+> result.hasNext();
 
 var total = 0;
 while(result.hasNext()) {
@@ -160,3 +163,15 @@ is a method of find.
 
 ```
 # Indexes
+
+db.collection.createIndex({ field: -1 / 1 });
+db.collection.createIndex({ field: -1 / 1, field2: -1 /1 });
+```javascript
+> db.sales.createIndex({ 'vendor.fname': 1, 'vendor.lname' : 1 });
+{
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 1,
+	"numIndexesAfter" : 2,
+	"ok" : 1
+}
+```
