@@ -153,6 +153,34 @@ print(total);
 - Total de iphones vendidos
 - Total de dinero vendido en material de Acer
 
+### solution
+```javascript
+// Total de ventas del vendedor: "Jose Perez"
+db.sales.find({ 'vendor.fname': 'Jose', 'vendor.lname': 'Perez'}).count();
+
+// Total de ventas del vendedor: "Pedro Casas"
+db.sales.find({ 'vendor.fname': 'Pedro', 'vendor.lname': 'Casas'}).count();
+
+// Total de iphones vendidos
+
+var result = db.sales.find({ 'products.name': 'Iphone 8'});
+var total = 0;
+while(result.hasNext()) {
+  const item = result.next();
+  item.products.forEach(p => {
+    if (p.name === 'Iphone 8') total++;
+  });
+}
+print(total);
+```
+
+
+```javascript
+  function getStatsByVendor(fname, lname) {
+
+  }
+```
+
 # Sorting and limit
 is a method of find.
 ```javascript
@@ -174,4 +202,77 @@ db.collection.createIndex({ field: -1 / 1, field2: -1 /1 });
 	"numIndexesAfter" : 2,
 	"ok" : 1
 }
+
+> db.sales.createIndex({ 'products.name': 1 });
+{
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 2,
+	"numIndexesAfter" : 3,
+	"ok" : 1
+}
+
 ```
+ # Exas
+
+ Add a new property 'totalAmount' with the sum(products.finalPrice);
+
+ Tips:
+ - Get all sales
+ - While(hasNext)
+ - Calculate the value the new property
+ - db.collection.update ($set)
+ 
+
+ ```javascript
+ // original
+
+ {
+	"_id" : ObjectId("5af0eb2f9d9039555a086bc7"),
+	"vendor" : {
+		"fname" : "Luis",
+		"lname" : undefined
+	},
+	"products" : [
+		{
+			"name" : "Ipad 2",
+			"priceUSD" : 472.21027308904974,
+			"cant" : 8,
+			"finalPrice" : 3777.682184712398
+		},
+		{
+			"name" : "Acer Aspire 1221",
+			"priceUSD" : 472.21027308904974,
+			"cant" : 8,
+			"finalPrice" : 3777.682184712398
+		}
+	],
+	"datetime" : ISODate("2018-05-08T00:11:27.149Z"),
+	"paymentMethod" : "cc"
+}
+
+// new document (after added new prop)
+{
+ "_id" : ObjectId("5af0eb2f9d9039555a086bc7"),
+ "vendor" : {
+   "fname" : "Luis",
+   "lname" : undefined
+ },
+ "products" : [
+   {
+     "name" : "Ipad 2",
+     "priceUSD" : 472.21027308904974,
+     "cant" : 8,
+     "finalPrice" : 3777.682184712398
+   },
+   {
+     "name" : "Acer Aspire 1221",
+     "priceUSD" : 472.21027308904974,
+     "cant" : 8,
+     "finalPrice" : 3777.682184712398
+   }
+ ],
+ "datetime" : ISODate("2018-05-08T00:11:27.149Z"),
+ "paymentMethod" : "cc",
+ "totalAmount": 755,36
+}
+ ```
