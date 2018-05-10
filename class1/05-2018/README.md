@@ -294,3 +294,34 @@ db.collection.createIndex({ field: -1 / 1, field2: -1 /1 });
     db.sales.update({ _id: item._id }, { $set: { totalAmount }});
   }
 ```
+
+
+# Exas
+
+Create a function 'getStats' and return totalAmount sales for each vendor.
+{
+  'Pedro Sanchez': 12388272.42,
+  'Juan Perez': 228817272.32,
+  ...
+}
+
+Then, save the result object into 'stats' collection, add the current datetime.
+
+
+## Solution
+```javascript
+function getStats() {
+ var result = db.sales.find({});
+ const stats = {};
+ while(result.hasNext()) {
+   const item = result.next();
+   if (typeof stats[`${item.vendor.fname} ${item.vendor.lname}`] === 'undefined') {
+    stats[`${item.vendor.fname} ${item.vendor.lname}`] = 0;
+   }
+
+   stats[`${item.vendor.fname} ${item.vendor.lname}`] += item.totalAmount;
+ }
+
+ db.statsSales.insert({ stats, datetime: new Date() });
+}
+```
