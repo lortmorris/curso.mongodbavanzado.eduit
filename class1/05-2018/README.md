@@ -325,3 +325,7 @@ function getStats() {
  db.statsSales.insert({ stats, datetime: new Date() });
 }
 ```
+
+```bash
+$ mongo mongodb://127.0.0.1:27017/cursodb stats.js
+```
