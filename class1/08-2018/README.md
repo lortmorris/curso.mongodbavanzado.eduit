@@ -84,5 +84,13 @@ switched to db cursodb
 numbers
 > db.numbers.find().count()
 1000
-> 
+>
 ```
+
+
+#### challenge
+- Create database 'myowntest';
+- Create collection with numbers between 1 - 100000
+- Make dump of database 'myowntest'
+- Remove database 'myowntest'
+- Restore database 'myowntest'
