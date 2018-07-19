@@ -151,3 +151,39 @@ numbers2
 1000
 >
 ```
+
+
+#### challenge
+```bash
+cesars-MBP:08-2018 cesarcasas$ wget https://raw.githubusercontent.com/datasets/airport-codes/master/data/airport-codes.csv
+--2018-07-19 20:06:54--  https://raw.githubusercontent.com/datasets/airport-codes/master/data/airport-codes.csv
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.216.133
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.216.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 5788577 (5.5M) [text/plain]
+Saving to: 'airport-codes.csv'
+
+airport-codes.csv                                           100%[=========================================================================================================================================>]   5.52M  1.30MB/s    in 4.7s    
+
+2018-07-19 20:06:59 (1.18 MB/s) - 'airport-codes.csv' saved [5788577/5788577]
+
+cesars-MBP:08-2018 cesarcasas$ ls -la
+total 12456
+drwxr-xr-x  6 cesarcasas  staff      192 Jul 19 20:06 .
+drwxr-xr-x  8 cesarcasas  staff      256 Jul 19 19:16 ..
+-rw-r--r--  1 cesarcasas  staff     4022 Jul 19 20:03 README.md
+-rw-r--r--@ 1 cesarcasas  staff  5788577 Jul 19 20:06 airport-codes.csv
+drwxr-xr-x  3 cesarcasas  staff       96 Jul 19 19:26 dump
+-rw-r--r--  1 cesarcasas  staff    65337 Jul 19 19:59 numbers.json
+cesars-MBP:08-2018 cesarcasas$ du -sh airport-codes.csv
+6.0M	airport-codes.csv
+cesars-MBP:08-2018 cesarcasas$ tar -zcvf airport-codes.csv.tgz airport-codes.csv
+a airport-codes.csv
+cesars-MBP:08-2018 cesarcasas$ du -sh airport-codes.csv.tgz
+1.9M	airport-codes.csv.tgz
+cesars-MBP:08-2018 cesarcasas$
+```
+
+- Uncompress airport-codes.csv.tgz
+- Import from airport-codes.csv : ident,type,name into 'airport' collection, into 'cursodb' database.
+- (see mongoimport --help )
