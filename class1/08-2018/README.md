@@ -86,7 +86,26 @@ numbers
 1000
 >
 ```
+### compress the dump directory
+```bash
+cesars-MBP:08-2018 cesarcasas$ tar -zcvf dump.tgz dump
+a dump
+a dump/cursodb
+a dump/cursodb/numbers.metadata.json
+a dump/cursodb/numbers.bson
+cesars-MBP:08-2018 cesarcasas$ ls -la
+total 24
+drwxr-xr-x  5 cesarcasas  staff   160 Jul 19 19:50 .
+drwxr-xr-x  8 cesarcasas  staff   256 Jul 19 19:16 ..
+-rw-r--r--  1 cesarcasas  staff  2230 Jul 19 19:37 README.md
+drwxr-xr-x  3 cesarcasas  staff    96 Jul 19 19:26 dump
+-rw-r--r--  1 cesarcasas  staff  6683 Jul 19 19:50 dump.tgz
+```
 
+### uncompress dump.tgz
+```bash
+cesars-MBP:08-2018 cesarcasas$ tar -zxvf dump.tgz
+```
 
 #### challenge
 - Create database 'myowntest';
@@ -94,3 +113,41 @@ numbers
 - Make dump of database 'myowntest'
 - Remove database 'myowntest'
 - Restore database 'myowntest' from dump
+
+
+## MongoExport
+
+### example
+```bash
+cesars-MBP:08-2018 cesarcasas$ mongoexport --db cursodb --collection numbers --out numbers.json
+2018-07-19T19:54:39.246-0300	connected to: localhost
+2018-07-19T19:54:39.268-0300	exported 1000 records
+cesars-MBP:08-2018 cesarcasas$
+cesars-MBP:08-2018 cesarcasas$ mongoexport --db cursodb --collection numbers --out numbers.json --type csv --fields _id,x,x2
+2018-07-19T19:57:55.140-0300	connected to: localhost
+2018-07-19T19:57:55.147-0300	exported 1000 records
+cesars-MBP:08-2018 cesarcasas$
+cesars-MBP:08-2018 cesarcasas$ mongoexport --db cursodb --collection numbers --out numbers.json --jsonArray
+2018-07-19T19:59:41.900-0300	connected to: localhost
+2018-07-19T19:59:41.933-0300	exported 1000 records
+cesars-MBP:08-2018 cesarcasas$
+```
+
+### example for import
+```bash
+cesars-MBP:08-2018 cesarcasas$ mongoimport --db cursodb --collection numbers2 --file numbers.json --jsonArray
+2018-07-19T20:02:45.374-0300	connected to: localhost
+2018-07-19T20:02:45.443-0300	imported 1000 documents
+cesars-MBP:08-2018 cesarcasas$
+```
+
+```javascript
+> use cursodb;
+switched to db cursodb
+> show collections;
+numbers
+numbers2
+> db.numbers2.find().count()
+1000
+>
+```
