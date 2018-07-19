@@ -93,4 +93,4 @@ numbers
 - Create collection with numbers between 1 - 100000
 - Make dump of database 'myowntest'
 - Remove database 'myowntest'
-- Restore database 'myowntest'
+- Restore database 'myowntest' from dump
