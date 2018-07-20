@@ -187,3 +187,77 @@ cesars-MBP:08-2018 cesarcasas$
 - Uncompress airport-codes.csv.tgz
 - Import from airport-codes.csv : ident,type,name into 'airport' collection, into 'cursodb' database.
 - (see mongoimport --help )
+
+```bash
+cesars-MBP:08-2018 cesarcasas$ mongoimport --db cursodb --collection airport -f ident,type,name --type csv  --file airport-codes.csv
+2018-07-19T20:50:13.508-0300	connected to: localhost
+2018-07-19T20:50:14.368-0300	imported 52579 documents
+cesars-MBP:08-2018 cesarcasas$
+
+```
+
+```javascript
+> use cursodb;
+switched to db cursodb
+> show collections;
+airport
+numbers
+numbers2
+> db.airport.find().count()
+52579
+```
+
+# Query examples
+
+## get all document, population only some fields
+```javascript
+> db.airport.find( {} , { _id: -1, ident: 1, type: 1, name: 1, elevation_ft: 1 } );
+```
+
+## get all documents, where name have pattern 'Jorge'
+```javascript
+> db.airport.find( { name: /Jorge/ } , { _id: -1, ident: 1, type: 1, name: 1, elevation_ft: 1 } );
+```
+## get all documents where elevation_ft gt 15000
+```javascript
+db.airport.find( { elevation_ft : { $gt: 15000 } } , { _id: -1, ident: 1, type: 1, name: 1, elevation_ft: 1 } )
+```
+
+## get all documents where elevation_ft < 0, sorting elevation_ft
+```javascript
+> db.airport.find( { elevation_ft : { $lt: 0  } } , { _id: -1, ident: 1, type: 1, name: 1, elevation_ft: 1 } ).sort({ elevation_ft: 1 })
+{ "_id" : ObjectId("5b51244bbff1e680d9b7b8c9"), "ident" : "LLMZ", "type" : "medium_airport", "name" : "Bar Yehuda Airfield", "elevation_ft" : -1266 }
+{ "_id" : ObjectId("5b51244bbff1e680d9b7abe6"), "ident" : "KL06", "type" : "small_airport", "name" : "Furnace Creek Airport", "elevation_ft" : -210 }
+{ "_id" : ObjectId("5b51244bbff1e680d9b7a6ac"), "ident" : "KCLR", "type" : "small_airport", "name" : "Cliff Hatfield Memorial Airport", "elevation_ft" : -182 }
+{ "_id" : ObjectId("5b51244bbff1e680d9b7b8ba"), "ident" : "LLEY", "type" : "small_airport", "name" : "Ein Yahav Airfield", "elevation_ft" : -164 }
+{ "_id" : ObjectId("5b51244bbff1e680d9b7a62f"), "ident" : "KBWC", "type" : "small_airport", "name" : "Brawley Municipal Airport", "elevation_ft" : -128 }
+{ "_id" : ObjectId("5b51244bbff1e680d9b7b205"), "ident" : "KTRM", "type" : "medium_airport", "name" : "Jacqueline Cochran Regional Airport", "elevation_ft" : -115 }
+{ "_id" : ObjectId("5b51244bbff1e680d9b758de"), "ident" : "59CL", "type" : "small_airport", "name" : "O'Connell Brothers Airport", "elevation_ft" : -99 }
+{ "_id" : ObjectId("5b51244bbff1e680d9b76762"), "ident" : "9CA2", "type" : "heliport", "name" : "Pioneers Memorial Hospital Heliport", "elevation_ft" : -99 }
+{ "_id" : ObjectId("5b51244cbff1e680d9b7d8e7"), "ident" : "SAS", "type" : "small_airport", "name" : "Salton Sea Airport", "elevation_ft" : -84 }
+{ "_id" : ObjectId("5b51244cbff1e680d9b7ccf1"), "ident" : "OINJ", "type" : "small_airport", "name" : "Bishe Kola Air Base", "elevation_ft" : -79 }
+{ "_id" : ObjectId("5b51244cbff1e680d9b7d75f"), "ident" : "RU-0381", "type" : "small_airport", "name" : "Osypnoy Bugor Airfield", "elevation_ft" : -72 }
+```
+
+## get all documents where elevation_ft between [10000, 12000]
+```javascript
+> db.airport.find( { $and: [{ elevation_ft: {$gt: 10000} }, { elevation_ft: { $lt: 12000 }  }]  }, { name: 1, elevation_ft: 1} )
+```
+
+## create indexes
+```javascript
+> db.getCollection('airport').createIndex({ elevation_ft: -1 });
+> db.getCollection('airport').createIndex({ elevation_ft: 1 });
+> db.getCollection('airport').createIndex({ name: -1 })
+> db.getCollection('airport').createIndex({ name: 1 })
+```
+
+# challenge
+- Download & unzip
+```bash
+cesars-MBP:08-2018 cesarcasas$ wget http://download.maxmind.com/download/worldcities/worldcitiespop.txt.gz  
+cesars-MBP:08-2018 cesarcasas$ gunzip worldcitiespop.txt.gz
+```
+
+- Import the csv into 'cities' collection (cursodb)
+- Create index on props 'City' (-1, 1)
