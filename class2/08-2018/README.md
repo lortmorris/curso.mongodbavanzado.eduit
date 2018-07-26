@@ -85,3 +85,22 @@ print(total);
 })
 
 ```
+
+# Geospatial indexes.
+
+```javascript
+const result = db.cities.find();
+while(result.hasNext()) {
+  const item = result.next();
+  db.cities.update({
+    _id: item._id
+  }, {
+    $set: {
+      position: {
+        type: "Point",
+        coordinates: [ item.Longitude, item.Latitude ]
+      }
+    }
+  })
+}
+```
