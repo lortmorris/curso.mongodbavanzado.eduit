@@ -88,6 +88,7 @@ print(total);
 
 # Geospatial indexes.
 
+## creating geojson struct
 ```javascript
 const result = db.cities.find();
 while(result.hasNext()) {
@@ -101,6 +102,23 @@ while(result.hasNext()) {
         coordinates: [ item.Longitude, item.Latitude ]
       }
     }
-  })
+  });
 }
+```
+
+
+## searching near point a to b
+```javascript
+db.getCollection('cities').find(
+{
+     position:
+       { $near :
+          {
+            $geometry: { type: "Point",  coordinates: [ -58.5035097, -34.6156624 ] },
+            $minDistance: 1000,
+            $maxDistance: 5000
+          }
+       }
+   }
+ )
 ```
