@@ -122,3 +122,11 @@ db.getCollection('cities').find(
    }
  )
 ```
+
+
+# challenge
+
+get 4 points of bs as city.
+Get all document (cities) within buenos aires
+
+.count()
