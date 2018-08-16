@@ -75,3 +75,46 @@ insert query update delete getmore command dirty used flushes vsize  res qrw arw
   4004    *0     *0     *0       0     1|0  0.3% 2.8%       0 5.09G 250M 0|0 1|1   577k    238k    2 Aug 16 19:40:54.779
   4063    *0     *0     *0       0     1|0  0.3% 2.8%       0 5.09G 251M 0|0 1|0   585k    240k    2 Aug 16 19:40:55.779
 ```
+
+
+
+# Mongo replicaset
+
+( https://docs.mongodb.com/manual/replication/ )
+Only the primary can write.
+
+App should be able driver replicaset support.
+
+
+```bash
+$ mongod --replSet "test"
+$  mkdir /data/db2
+$ mongod --replSet "test" --port 27018 --dbpath=/data/db2
+```
+
+
+
+```javascript
+// only in the replica member 0
+rs.initiate( {
+   _id : "test",
+   members: [
+      { _id: 0, host: "localhost:27017" },
+      { _id: 1, host: "localhost:27018" },
+      { _id: 2, host: "localhost:27019" }
+   ]
+});
+
+// for the other members
+rs.initiate();
+```
+
+
+## get the replicat set info
+```javascript
+rs.conf();
+```
+
+```javascript
+rs.status();
+```
