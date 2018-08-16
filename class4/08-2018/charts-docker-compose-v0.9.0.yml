@@ -1,0 +1,38 @@
+version: "3.3"
+
+services:
+  charts:
+    image: quay.io/mongodb/charts:v0.9.0
+    hostname: charts
+    ports:
+      # host:container port mapping. If you want MongoDB Charts to be
+      # reachable on a different port on the docker host, change this
+      # to <port>:80, e.g. 8888:80.
+      - 80:80
+    volumes:
+      - keys:/mongodb-charts/volumes/keys
+      - db-certs:/mongodb-charts/volumes/db-certs
+    environment:
+      # This environment variable controls the built-in support widget and
+      # metrics collection in MongoDB Charts. To disable both, set the value
+      # to "off". The default is "on".
+      CHARTS_SUPPORT_WIDGET_AND_METRICS: "on"
+      # Directory where you can upload SSL certificates (.pem format) which
+      # should be considered trusted self-signed or root certificates when
+      # Charts is accessing MongoDB servers with ?ssl=true
+      SSL_CERT_DIR: /mongodb-charts/volumes/db-certs
+    networks:
+      - backend
+    secrets:
+      - charts-mongodb-uri
+
+networks:
+  backend:
+
+volumes:
+  keys:
+  db-certs:
+
+secrets:
+  charts-mongodb-uri:
+    external: true
