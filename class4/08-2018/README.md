@@ -118,3 +118,41 @@ rs.conf();
 ```javascript
 rs.status();
 ```
+
+
+
+# Chanllenge
+This challenge shuld be running into a empty server.
+
+- install MongoDB 4.x
+- run 3 instances with replicaset
+- enable monitoring cloud
+- create in replset0 a collection 'cursodb.test1' with 1.000.000 random documents.
+- stop replset0
+- create into replset2 a collection 'cursodb.test2' with 10.000 random documents.
+
+```javascript
+// example random document schema
+for (let x=0 ; x< 10000; x++ ) ... {
+  x,
+  added: new Date(),
+  random: Math.random() * x,
+}
+```
+
+- count: x > 50000
+- count: x > 500 && x < 732
+
+
+# install MongoDB into EC2 Instance
+
+```bash
+$ ssh -i /path/to/file.pem admin@xxx.xxx.xxx.xxx
+$ sudo passwd
+$ su
+$ apt-get update && apt-get upgrade
+$ apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
+$ echo "deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.0 main" | tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+$ apt-get update
+$ apt-get install -y mongodb-org
+```
